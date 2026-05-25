@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% block title %}Kasalxonalar — MedStaff{% endblock %}
+{% block page_title %}Kasalxonalar{% endblock %}
+
+{% block content %}
+<!-- Filters -->
+<div class="card p-3 mb-4">
+    <form method="get" class="row g-2 align-items-end">
+        <div class="col-md-4">
+            <div class="search-box">
+                <i class="bi bi-search"></i>
+                <input type="text" name="search" class="form-control" placeholder="Kasalxona nomi qidirish..."
+                       value="{{ filters.search|default:'' }}">
+            </div>
+        </div>
+        <div class="col-md-3">
+            <select name="region" class="form-select">
+                <option value="">Barcha viloyatlar</option>
+                {% for code, name in regions %}
+                <option value="{{ code }}" {% if filters.region == code %}selected{% endif %}>{{ name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-3">
+            <select name="type" class="form-select">
+                <option value="">Barcha turlar</option>
+                {% for code, name in types %}
+                <option value="{{ code }}" {% if filters.type == code %}selected{% endif %}>{{ name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-2 d-flex gap-1">
+            <button type="submit" class="btn btn-primary flex-fill"><i class="bi bi-search"></i></button>
+            <a href="{% url 'hospital_list' %}" class="btn btn-outline-secondary"><i class="bi bi-x"></i></a>
+        </div>
+    </form>
+</div>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h5 class="fw-bold mb-0">Kasalxonalar</h5>
+        <small class="text-muted">{{ hospitals|length }} ta topildi</small>
+    </div>
+    {% if request.user.is_staff or request.user.is_superuser %}
+    <a href="{% url 'hospital_add' %}" class="btn btn-primary">
+        <i class="bi bi-plus-circle me-1"></i>Kasalxona qo'shish
+    </a>
+    {% endif %}
+</div>
+
+<div class="row g-3">
+    {% for h in hospitals %}
+    <div class="col-md-6 col-lg-4">
+        <div class="card p-3 h-100" style="transition:.2s" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+            <div class="d-flex align-items-start gap-3 mb-3">
+                <div style="width:50px;height:50px;background:linear-gradient(135deg,#e8f4fd,#dbeafe);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0">
+                    <i class="bi bi-hospital" style="color:#0f4c81"></i>
+                </div>
+                <div class="flex-grow-1">
+                    <h6 class="fw-bold mb-1" style="font-size:.92rem">{{ h.name }}</h6>
+                    <span class="badge bg-light text-dark" style="font-size:.75rem">{{ h.get_hospital_type_display }}</span>
+                </div>
+            </div>
+            <div class="mb-2">
+                <span class="badge-region"><i class="bi bi-geo-alt me-1"></i>{{ h.get_region_display }}</span>
+            </div>
+            <p class="text-muted mb-2" style="font-size:.83rem"><i class="bi bi-map me-1"></i>{{ h.address }}</p>
+            {% if h.phone %}
+            <p class="text-muted mb-2" style="font-size:.83rem"><i class="bi bi-telephone me-1"></i>{{ h.phone }}</p>
+            {% endif %}
+            <div class="d-flex justify-content-between align-items-center mt-auto pt-2 border-top">
+                <span class="fw-bold" style="color:#0f4c81;font-size:.88rem">
+                    <i class="bi bi-people me-1"></i>{{ h.sc }} xodim
+                </span>
+                <div class="d-flex gap-1">
+                    <a href="{% url 'hospital_detail' h.pk %}" class="btn btn-sm btn-outline-primary">
+                        <i class="bi bi-eye"></i>
+                    </a>
+                    <a href="{% url 'hospital_edit' h.pk %}" class="btn btn-sm btn-outline-secondary">
+                        <i class="bi bi-pencil"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12 text-center text-muted py-5">
+        <i class="bi bi-hospital fs-2 d-block mb-2"></i>
+        Kasalxona topilmadi.
+        {% if request.user.is_staff or request.user.is_superuser %}<a href="{% url 'hospital_add' %}">Yangi qo'shish</a>{% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

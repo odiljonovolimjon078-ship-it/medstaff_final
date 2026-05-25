@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% block title %}{{ person.full_name }} — MedStaff{% endblock %}
+{% block page_title %}Xodim ma'lumotlari{% endblock %}
+{% block content %}
+<style>
+body.dark .card,
+body.dark .card-header,
+body.dark .card-body,
+body.dark .card-footer { background: #111827 !important; border-color: #1f2937 !important; color: #e2e8f0 !important; }
+body.dark .table { color: #e2e8f0 !important; }
+body.dark .table thead th { background: #1f2937 !important; color: #94a3b8 !important; border-color: #374151 !important; }
+body.dark .table tbody td { border-color: #1f2937 !important; color: #e2e8f0 !important; }
+body.dark .table tbody tr { background: #111827 !important; }
+body.dark .table tbody tr:hover { background: #1f2937 !important; }
+body.dark [style*="color:#475569"] { color: #94a3b8 !important; }
+body.dark [style*="color:#64748b"] { color: #6b7280 !important; }
+body.dark [style*="color:#94a3b8"] { color: #64748b !important; }
+body.dark [style*="color:#0f172a"],
+body.dark [style*="color:#1e293b"] { color: #e2e8f0 !important; }
+body.dark [style*="border-bottom:1px solid #f1f5f9"],
+body.dark [style*="border-top:1px solid #f1f5f9"] { border-color: #1f2937 !important; }
+body.dark [style*="background:#eff6ff"] { background: #1e3a5f !important; }
+body.dark [style*="background:#f1f5f9"] { background: #1f2937 !important; }
+body.dark [style*="background:#f8fafc"] { background: #1a2236 !important; }
+body.dark [style*="background:#dbeafe"] { background: #1e3a5f !important; }
+body.dark .form-control, body.dark .form-select { background: #1f2937 !important; border-color: #374151 !important; color: #e2e8f0 !important; }
+body.dark .form-label { color: #94a3b8 !important; }
+body.dark .text-muted { color: #6b7280 !important; }
+body.dark h5, body.dark h6 { color: #e2e8f0 !important; }
+body.dark .border-bottom { border-color: #1f2937 !important; }
+body.dark .border-top { border-color: #1f2937 !important; }
+body.dark select option { background: #1f2937; color: #e2e8f0; }
+</style>
+
+<!-- MOBILE -->
+<div class="mob-page-bar">
+  <a href="{% url 'staff_list' %}" style="font-size:14px;font-weight:600;color:#2563eb;display:flex;align-items:center;gap:5px;"><i class="bi bi-arrow-left"></i>Orqaga</a>
+  {% if user.is_staff or user.is_superuser %}
+  <div class="mob-acts">
+    <a href="{% url 'staff_edit' person.pk %}" class="mob-btn"><i class="bi bi-pencil"></i></a>
+    <a href="{% url 'staff_delete' person.pk %}" class="mob-btn danger"><i class="bi bi-trash"></i></a>
+  </div>
+  {% endif %}
+</div>
+<div class="mob-detail">
+  <div class="mob-detail-hero">
+    <div class="mob-detail-av">{% if person.photo %}<img src="{{ person.photo.url }}" alt="">{% else %}{{ person.first_name.0 }}{{ person.last_name.0 }}{% endif %}</div>
+    <div class="mob-detail-name">{{ person.full_name }}</div>
+    <span class="mob-badge" style="font-size:12px;padding:5px 14px;">{{ person.get_position_display }}</span>
+    <div class="mob-detail-stats">
+      <div class="mob-dstat"><div class="val">{{ person.age }}</div><div class="key">Yosh</div></div>
+      <div class="mob-dstat"><div class="val">{{ person.experience_years }}</div><div class="key">Yil</div></div>
+      <div class="mob-dstat"><div class="val" style="color:{% if person.is_active %}#10b981{% else %}#ef4444{% endif %};">{% if person.is_active %}✓{% else %}✗{% endif %}</div><div class="key">Holat</div></div>
+    </div>
+  </div>
+  <div class="mob-d-rows">
+    <div class="mob-d-row"><span class="mob-d-key">Kasalxona</span><span class="mob-d-val">{{ person.hospital.name }}</span></div>
+    <div class="mob-d-row"><span class="mob-d-key">Viloyat</span><span class="mob-d-val">{{ person.hospital.get_region_display }}</span></div>
+    <div class="mob-d-row"><span class="mob-d-key">Lavozim</span><span class="mob-d-val">{{ person.get_position_display }}</span></div>
+    {% if person.specialization %}<div class="mob-d-row"><span class="mob-d-key">Mutaxassislik</span><span class="mob-d-val">{{ person.specialization }}</span></div>{% endif %}
+    <div class="mob-d-row"><span class="mob-d-key">Ish vaqti</span><span class="mob-d-val">{{ person.get_shift_display }}</span></div>
+    {% if person.phone %}<div class="mob-d-row"><span class="mob-d-key">Telefon</span><a href="tel:{{ person.phone }}" class="mob-d-val" style="color:#2563eb;">{{ person.phone }}</a></div>{% endif %}
+    {% if person.email %}<div class="mob-d-row"><span class="mob-d-key">Email</span><span class="mob-d-val" style="font-size:12px;">{{ person.email }}</span></div>{% endif %}
+    {% if person.hired_date %}<div class="mob-d-row"><span class="mob-d-key">Ishga kirgan</span><span class="mob-d-val">{{ person.hired_date|date:"d.m.Y" }}</span></div>{% endif %}
+    {% if person.salary %}<div class="mob-d-row"><span class="mob-d-key">Maosh</span><span class="mob-d-val">{{ person.salary|floatformat:0 }} so'm</span></div>{% endif %}
+  </div>
+</div>
+
+<!-- DESKTOP -->
+<div class="d-none d-md-block">
+  <div class="d-flex align-items-center gap-3 mb-4">
+    <a href="{% url 'staff_list' %}" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left me-1"></i>Orqaga</a>
+    {% if user.is_staff or user.is_superuser %}
+    <a href="{% url 'staff_edit' person.pk %}" class="btn btn-primary btn-sm"><i class="bi bi-pencil me-1"></i>Tahrirlash</a>
+    <a href="{% url 'staff_delete' person.pk %}" class="btn btn-outline-danger btn-sm"><i class="bi bi-trash me-1"></i>O'chirish</a>
+    {% endif %}
+  </div>
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card text-center p-4">
+        <div class="avatar mx-auto mb-3" style="width:80px;height:80px;border-radius:20px;font-size:1.8rem;">
+          {% if person.photo %}<img src="{{ person.photo.url }}" width="80" height="80" style="border-radius:20px;object-fit:cover;">{% else %}{{ person.first_name.0 }}{{ person.last_name.0 }}{% endif %}
+        </div>
+        <h5 class="fw-700 mb-1">{{ person.full_name }}</h5>
+        <span class="badge-pos">{{ person.get_position_display }}</span>
+        <hr>
+        <div class="row text-center mt-2">
+          <div class="col-4"><div style="font-size:1.4rem;font-weight:800;color:#1e40af;">{{ person.age }}</div><div class="text-muted small">Yosh</div></div>
+          <div class="col-4"><div style="font-size:1.4rem;font-weight:800;color:#1e40af;">{{ person.experience_years }}</div><div class="text-muted small">Yil</div></div>
+          <div class="col-4"><div style="font-size:1.4rem;font-weight:800;color:{% if person.is_active %}#10b981{% else %}#ef4444{% endif %};">{% if person.is_active %}✓{% else %}✗{% endif %}</div><div class="text-muted small">Holat</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header border-0 py-3 px-4"><div class="section-label mb-0">MA'LUMOTLAR</div></div>
+        <div class="card-body p-0">
+          <table class="table mb-0">
+            <tbody>
+              <tr><td class="text-muted" style="width:35%">Kasalxona</td><td class="fw-600">{{ person.hospital.name }}</td></tr>
+              <tr><td class="text-muted">Viloyat</td><td class="fw-600">{{ person.hospital.get_region_display }}</td></tr>
+              <tr><td class="text-muted">Lavozim</td><td><span class="badge-pos">{{ person.get_position_display }}</span></td></tr>
+              {% if person.specialization %}<tr><td class="text-muted">Mutaxassislik</td><td class="fw-600">{{ person.specialization }}</td></tr>{% endif %}
+              <tr><td class="text-muted">Ish vaqti</td><td class="fw-600">{{ person.get_shift_display }}</td></tr>
+              {% if person.phone %}<tr><td class="text-muted">Telefon</td><td><a href="tel:{{ person.phone }}" class="text-primary fw-600">{{ person.phone }}</a></td></tr>{% endif %}
+              {% if person.email %}<tr><td class="text-muted">Email</td><td class="fw-600">{{ person.email }}</td></tr>{% endif %}
+              {% if person.hired_date %}<tr><td class="text-muted">Ishga kirgan</td><td class="fw-600">{{ person.hired_date|date:"d.m.Y" }}</td></tr>{% endif %}
+              {% if person.salary %}<tr><td class="text-muted">Maosh</td><td class="fw-600">{{ person.salary|floatformat:0 }} so'm</td></tr>{% endif %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

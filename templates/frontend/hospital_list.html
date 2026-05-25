@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% block title %}Kasalxonalar — MedStaff{% endblock %}
+{% block page_title %}Kasalxonalar{% endblock %}
+{% block content %}
+<style>
+body.dark .card,
+body.dark .card-header,
+body.dark .card-body,
+body.dark .card-footer { background: #111827 !important; border-color: #1f2937 !important; color: #e2e8f0 !important; }
+body.dark .table { color: #e2e8f0 !important; }
+body.dark .table thead th { background: #1f2937 !important; color: #94a3b8 !important; border-color: #374151 !important; }
+body.dark .table tbody td { border-color: #1f2937 !important; color: #e2e8f0 !important; }
+body.dark .table tbody tr { background: #111827 !important; }
+body.dark .table tbody tr:hover { background: #1f2937 !important; }
+body.dark [style*="color:#475569"] { color: #94a3b8 !important; }
+body.dark [style*="color:#64748b"] { color: #6b7280 !important; }
+body.dark [style*="color:#94a3b8"] { color: #64748b !important; }
+body.dark [style*="color:#0f172a"],
+body.dark [style*="color:#1e293b"] { color: #e2e8f0 !important; }
+body.dark [style*="border-bottom:1px solid #f1f5f9"],
+body.dark [style*="border-top:1px solid #f1f5f9"] { border-color: #1f2937 !important; }
+body.dark [style*="background:#eff6ff"] { background: #1e3a5f !important; }
+body.dark [style*="background:#f1f5f9"] { background: #1f2937 !important; }
+body.dark [style*="background:#f8fafc"] { background: #1a2236 !important; }
+body.dark [style*="background:#dbeafe"] { background: #1e3a5f !important; }
+body.dark .form-control, body.dark .form-select { background: #1f2937 !important; border-color: #374151 !important; color: #e2e8f0 !important; }
+body.dark .form-label { color: #94a3b8 !important; }
+body.dark .text-muted { color: #6b7280 !important; }
+body.dark h5, body.dark h6 { color: #e2e8f0 !important; }
+body.dark .border-bottom { border-color: #1f2937 !important; }
+body.dark .border-top { border-color: #1f2937 !important; }
+body.dark select option { background: #1f2937; color: #e2e8f0; }
+</style>
+
+<!-- MOBILE -->
+<div class="mob-page-bar">
+  <div><h2>Kasalxonalar</h2><div class="mob-sub">Jami {{ hospitals|length }} ta</div></div>
+  {% if user.is_staff or user.is_superuser %}
+  <a href="{% url 'hospital_add' %}" style="width:36px;height:36px;border-radius:10px;background:#1e40af;display:flex;align-items:center;justify-content:center;"><i class="bi bi-plus-lg" style="color:#fff;font-size:18px;"></i></a>
+  {% endif %}
+</div>
+<div class="mob-search">
+  <form method="get" id="hf">
+    <div class="mob-search-inner"><i class="bi bi-search"></i><input type="text" name="search" placeholder="Kasalxona nomi..." value="{{ filters.search|default:'' }}"></div>
+    <div class="mob-filter-row">
+      <select name="region" class="mob-select" onchange="this.form.submit()"><option value="">Viloyatlar</option>{% for code,name in regions %}<option value="{{ code }}" {% if filters.region == code %}selected{% endif %}>{{ name }}</option>{% endfor %}</select>
+      <select name="type" class="mob-select" onchange="this.form.submit()"><option value="">Turlar</option>{% for code,name in types %}<option value="{{ code }}" {% if filters.type == code %}selected{% endif %}>{{ name }}</option>{% endfor %}</select>
+    </div>
+  </form>
+</div>
+<div style="padding:0 16px 16px;">
+  {% for h in hospitals %}
+  <div class="mob-hosp-card">
+    <div class="mob-hosp-top">
+      <div class="mob-hosp-icon"><i class="bi bi-hospital" style="color:#3b82f6;font-size:22px;"></i></div>
+      <div style="flex:1;min-width:0;">
+        <p class="mob-hosp-name">{{ h.name }}</p>
+        <span class="mob-hosp-type">{{ h.get_hospital_type_display }}</span>
+        <p class="mob-hosp-meta"><i class="bi bi-geo-alt"></i> {{ h.get_region_display }}</p>
+        <p class="mob-hosp-meta"><i class="bi bi-map"></i> {{ h.address }}</p>
+        {% if h.phone %}<p class="mob-hosp-meta"><i class="bi bi-telephone"></i> {{ h.phone }}</p>{% endif %}
+      </div>
+    </div>
+    <div class="mob-hosp-footer">
+      <span class="mob-hosp-cnt"><i class="bi bi-people-fill"></i> {{ h.sc }} xodim</span>
+      <div class="mob-acts">
+        <a href="{% url 'hospital_detail' h.pk %}" class="mob-btn"><i class="bi bi-eye"></i></a>
+        {% if user.is_staff or user.is_superuser %}
+        <a href="{% url 'hospital_edit' h.pk %}" class="mob-btn"><i class="bi bi-pencil"></i></a>
+        <a href="{% url 'hospital_delete' h.pk %}" class="mob-btn danger"><i class="bi bi-trash"></i></a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% empty %}<div class="mob-empty"><div class="ei"><i class="fa-regular fa-hospital"></i></div><p>Kasalxona topilmadi</p></div>{% endfor %}
+</div>
+
+<!-- DESKTOP -->
+<div class="d-none d-md-block">
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <div><h4 class="fw-700 mb-1">Kasalxonalar</h4><p class="text-muted small mb-0">Jami {{ hospitals|length }} ta</p></div>
+    {% if user.is_staff or user.is_superuser %}
+    <a href="{% url 'hospital_add' %}" class="btn btn-primary"><i class="bi bi-building-add me-2"></i>Kasalxona qo'shish</a>
+    {% endif %}
+  </div>
+  <div class="card mb-4"><div class="card-body">
+    <form method="get" class="row g-2">
+      <div class="col-md-5 search-box"><i class="search-icon bi bi-search"></i><input class="form-control" type="text" name="search" placeholder="Kasalxona nomi..." value="{{ filters.search|default:'' }}"></div>
+      <div class="col-md-3"><select class="form-select" name="region"><option value="">Barcha viloyatlar</option>{% for code,name in regions %}<option value="{{ code }}" {% if filters.region == code %}selected{% endif %}>{{ name }}</option>{% endfor %}</select></div>
+      <div class="col-md-2"><select class="form-select" name="type"><option value="">Barcha turlar</option>{% for code,name in types %}<option value="{{ code }}" {% if filters.type == code %}selected{% endif %}>{{ name }}</option>{% endfor %}</select></div>
+      <div class="col-md-2 d-flex gap-2"><button type="submit" class="btn btn-primary flex-fill">Qidirish</button>{% if filters.search or filters.region or filters.type %}<a href="{% url 'hospital_list' %}" class="btn btn-outline-secondary">✕</a>{% endif %}</div>
+    </form>
+  </div></div>
+  <div class="row g-3">
+    {% for h in hospitals %}
+    <div class="col-md-6 col-xl-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="d-flex align-items-start gap-3 mb-3">
+            <div style="width:50px;height:50px;border-radius:14px;background:#eff6ff;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;"><i class="bi bi-hospital" style="color:#3b82f6;"></i></div>
+            <div style="flex:1;min-width:0;"><h6 class="fw-700 mb-1">{{ h.name }}</h6><span class="badge-pos" style="font-size:.72rem;">{{ h.get_hospital_type_display }}</span></div>
+          </div>
+          <p class="text-muted small mb-1"><i class="bi bi-geo-alt me-1"></i>{{ h.get_region_display }}</p>
+          <p class="text-muted small mb-1"><i class="bi bi-map me-1"></i>{{ h.address }}</p>
+          {% if h.phone %}<p class="text-muted small mb-1"><i class="bi bi-telephone me-1"></i>{{ h.phone }}</p>{% endif %}
+        </div>
+        <div class="card-footer border-top d-flex align-items-center justify-content-between py-2 px-3">
+          <span class="text-primary fw-600 small"><i class="bi bi-people-fill me-1"></i>{{ h.sc }} xodim</span>
+          <div class="d-flex gap-1">
+            <a href="{% url 'hospital_detail' h.pk %}" class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i></a>
+            {% if user.is_staff or user.is_superuser %}
+            <a href="{% url 'hospital_edit' h.pk %}" class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i></a>
+            <a href="{% url 'hospital_delete' h.pk %}" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% empty %}<div class="col-12 text-center py-5 text-muted"><i class="bi bi-hospital display-6 d-block mb-2 opacity-25"></i>Kasalxona topilmadi</div>{% endfor %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,335 @@
+{% extends 'base.html' %}
+{% block title %}Bosh sahifa — MedStaff{% endblock %}
+{% block page_title %}Bosh sahifa{% endblock %}
+{% block content %}
+<style>
+.card-header { background: var(--ch-bg, #fff); }
+.desk-td-text { font-size:.85rem; color:#475569; }
+.desk-td-sub  { font-size:.75rem; color:#94a3b8; }
+.desk-stat-count { font-size:.82rem; color:#64748b; }
+.desk-stat-name  { font-size:.85rem; font-weight:600; color:#0f172a; }
+body.dark .desk-td-text  { color:#94a3b8!important; }
+body.dark .desk-td-sub   { color:#6b7280!important; }
+body.dark .desk-stat-name{ color:#e2e8f0!important; }
+body.dark .desk-stat-count{color:#94a3b8!important; }
+body.dark .card-header   { background:#111827!important; }
+
+/* ── Kasallik qidiruv ── */
+.disease-search-wrap {
+  background: linear-gradient(135deg, #1e3a5f 0%, #1e40af 50%, #0e7490 100%);
+  border-radius: 20px;
+  padding: 28px 24px 22px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.disease-search-wrap::before {
+  content:''; position:absolute; top:-40px; right:-40px;
+  width:200px; height:200px; border-radius:50%;
+  background:rgba(255,255,255,.06);
+}
+.disease-search-wrap::after {
+  content:''; position:absolute; bottom:-60px; left:-30px;
+  width:160px; height:160px; border-radius:50%;
+  background:rgba(255,255,255,.04);
+}
+.disease-search-title {
+  color:#fff; font-size:1.1rem; font-weight:700;
+  margin-bottom:4px; display:flex; align-items:center; gap:8px;
+}
+.disease-search-sub {
+  color:rgba(255,255,255,.7); font-size:.8rem; margin-bottom:14px;
+}
+.disease-input-row {
+  display:flex; gap:10px; position:relative; z-index:1;
+}
+.disease-input {
+  flex:1; background:rgba(255,255,255,.15);
+  border:1.5px solid rgba(255,255,255,.3);
+  border-radius:12px; padding:11px 18px;
+  color:#fff; font-size:.93rem; outline:none; transition:.2s;
+  backdrop-filter:blur(4px);
+}
+.disease-input::placeholder { color:rgba(255,255,255,.5); }
+.disease-input:focus {
+  background:rgba(255,255,255,.22);
+  border-color:rgba(255,255,255,.6);
+}
+.disease-search-btn {
+  background:#fff; color:#1e40af; border:none;
+  border-radius:12px; padding:11px 20px;
+  font-weight:700; font-size:.88rem; cursor:pointer;
+  transition:.2s; display:flex; align-items:center; gap:6px; white-space:nowrap;
+}
+.disease-search-btn:hover { background:#eff6ff; transform:translateY(-1px); }
+.disease-tags {
+  display:flex; flex-wrap:wrap; gap:7px;
+  margin-top:12px; position:relative; z-index:1;
+}
+.disease-tag {
+  background:rgba(255,255,255,.13);
+  border:1px solid rgba(255,255,255,.25);
+  color:rgba(255,255,255,.85); font-size:.74rem;
+  padding:4px 11px; border-radius:20px; cursor:pointer; transition:.2s;
+}
+.disease-tag:hover { background:rgba(255,255,255,.25); color:#fff; }
+.dsearch-spinner {
+  color:rgba(255,255,255,.7); font-size:.85rem;
+  margin-top:10px; display:none; position:relative; z-index:1;
+}
+#disease-results { margin-top:14px; position:relative; z-index:1; }
+.result-card {
+  background:#fff; border-radius:13px; padding:14px 16px;
+  margin-bottom:8px; display:flex; align-items:center; gap:12px;
+  box-shadow:0 2px 8px rgba(0,0,0,.06); transition:.2s;
+  text-decoration:none; color:inherit;
+}
+.result-card:hover { box-shadow:0 4px 16px rgba(30,64,175,.14); transform:translateY(-2px); color:inherit; }
+.result-icon {
+  width:42px; height:42px; border-radius:11px;
+  background:linear-gradient(135deg,#eff6ff,#dbeafe);
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+.result-icon i { font-size:19px; color:#2563eb; }
+.result-name { font-weight:700; font-size:.92rem; color:#0f172a; }
+.result-meta { font-size:.76rem; color:#64748b; margin-top:2px; }
+.result-badge {
+  margin-left:auto; background:#eff6ff; color:#1e40af;
+  font-size:.73rem; font-weight:700; padding:4px 10px;
+  border-radius:20px; white-space:nowrap; flex-shrink:0;
+}
+.result-badge.green { background:#f0fdf4; color:#16a34a; }
+.no-result {
+  background:rgba(255,255,255,.12); border-radius:11px;
+  padding:16px; text-align:center;
+  color:rgba(255,255,255,.75); font-size:.86rem;
+}
+body.dark .result-card { background:#1e293b; color:#e2e8f0; }
+body.dark .result-name { color:#f1f5f9; }
+body.dark .result-meta { color:#94a3b8; }
+</style>
+
+<!-- ══ MOBILE LAYOUT ══ -->
+<div class="mob-page-bar">
+  <div><h2>Bosh sahifa</h2><div class="mob-sub">Xush kelibsiz, {{ user.get_full_name|default:user.username }}</div></div>
+</div>
+
+<!-- Mobile qidiruv bloki -->
+<div class="d-md-none" style="margin-bottom:14px;">
+  <div class="disease-search-wrap" style="padding:20px 16px 16px;">
+    <div class="disease-search-title" style="font-size:.95rem;"><i class="bi bi-search-heart-fill"></i> Kasallik bo'yicha kasalxona toping</div>
+    <div class="disease-search-sub" style="font-size:.75rem;margin-bottom:10px;">Kasallik nomini kiriting</div>
+    <div class="disease-input-row">
+      <input type="text" class="disease-input" id="mob-disease-input"
+             placeholder="Masalan: yurak, tish, miya..."
+             onkeydown="if(event.key==='Enter') doMobSearch()">
+      <button class="disease-search-btn" onclick="doMobSearch()" style="padding:11px 14px;">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+    <div class="disease-tags" style="gap:6px;margin-top:10px;">
+      <span class="disease-tag" onclick="mobQuick('yurak')">💓 Yurak</span>
+      <span class="disease-tag" onclick="mobQuick('tish')">🦷 Tish</span>
+      <span class="disease-tag" onclick="mobQuick('miya')">🧠 Miya</span>
+      <span class="disease-tag" onclick="mobQuick('diabet')">💉 Diabet</span>
+      <span class="disease-tag" onclick="mobQuick('bolalar')">👶 Bolalar</span>
+      <span class="disease-tag" onclick="mobQuick('operatsiya')">🔪 Jarrohlik</span>
+    </div>
+    <div class="dsearch-spinner" id="mob-dsearch-spinner"><i class="bi bi-arrow-repeat"></i> Qidirmoqda...</div>
+    <div id="mob-disease-results"></div>
+  </div>
+</div>
+
+
+<div class="mob-sec-head"><span class="mob-sec-title"><i class="bi bi-clock-history"></i>So'nggi xodimlar</span><a href="{% url 'staff_list' %}" class="mob-see-all">Barchasi →</a></div>
+<div class="mob-card">
+  {% for person in recent_staff %}
+  <div class="mob-row">
+    <div class="mob-av">{{ person.first_name.0 }}{{ person.last_name.0 }}</div>
+    <div class="mob-info"><p class="mob-name">{{ person.full_name }}</p><p class="mob-meta">{{ person.age }} yosh · {{ person.hospital.name }}</p></div>
+    <span class="mob-badge">{{ person.get_position_display }}</span>
+    <a href="{% url 'staff_detail' person.pk %}" class="mob-btn"><i class="bi bi-eye"></i></a>
+  </div>
+  {% empty %}<div class="mob-empty"><div class="ei">👥</div><p>Xodim yo'q</p></div>{% endfor %}
+  <a href="{% url 'staff_list' %}" class="mob-all-btn">Barchasi →</a>
+</div>
+<div class="mob-sec-head"><span class="mob-sec-title"><i class="bi bi-hospital-fill"></i>Top kasalxonalar</span><a href="{% url 'hospital_list' %}" class="mob-see-all">Barchasi →</a></div>
+<div class="mob-card">
+  {% for h in top_hospitals %}
+  <div class="mob-row">
+    <div class="mob-av" style="border-radius:12px;background:#eff6ff;"><i class="bi bi-hospital" style="color:#3b82f6;font-size:18px;"></i></div>
+    <div class="mob-info"><p class="mob-name">{{ h.name }}</p><p class="mob-meta">{{ h.get_region_display }}</p></div>
+    <div style="width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;{% if h.sc > 0 %}background:#1e40af;color:#fff;{% else %}background:#f1f5f9;color:#94a3b8;{% endif %}">{{ h.sc }}</div>
+  </div>
+  {% empty %}<div class="mob-empty"><p>Kasalxona yo'q</p></div>{% endfor %}
+  <a href="{% url 'hospital_list' %}" class="mob-all-btn">Barchasi →</a>
+</div>
+
+<!-- ══ DESKTOP LAYOUT ══ -->
+<div class="d-none d-md-block">
+
+  <!-- Bitta qidiruv bloki -->
+  <div class="disease-search-wrap">
+    <div class="disease-search-title"><i class="bi bi-search-heart-fill"></i> Kasallik bo'yicha kasalxona toping</div>
+    <div class="disease-search-sub">Kasallik yoki belgi nomini kiriting — tizim mos mutaxassislar bor kasalxonalarni topib beradi</div>
+    <div class="disease-input-row">
+      <input type="text" class="disease-input" id="disease-input"
+             placeholder="Masalan: yurak, tish og'rig'i, miya, diabet..."
+             onkeydown="if(event.key==='Enter') doSearch()">
+      <button class="disease-search-btn" onclick="doSearch()">
+        <i class="bi bi-search"></i> Qidirish
+      </button>
+    </div>
+    <div class="disease-tags">
+      <span class="disease-tag" onclick="quickSearch('yurak')">💓 Yurak kasalligi</span>
+      <span class="disease-tag" onclick="quickSearch('tish')">🦷 Tish og'rig'i</span>
+      <span class="disease-tag" onclick="quickSearch('miya')">🧠 Miya / Insult</span>
+      <span class="disease-tag" onclick="quickSearch('diabet')">💉 Diabet</span>
+      <span class="disease-tag" onclick="quickSearch('bolalar')">👶 Bolalar kasalligi</span>
+      <span class="disease-tag" onclick="quickSearch('operatsiya')">🔪 Jarrohlik</span>
+      <span class="disease-tag" onclick="quickSearch('depressiya')">🧘 Ruhiy holat</span>
+      <span class="disease-tag" onclick="quickSearch('rentgen')">🩻 Rentgen / Radiologiya</span>
+    </div>
+    <div class="dsearch-spinner" id="dsearch-spinner"><i class="bi bi-arrow-repeat"></i> Qidirmoqda...</div>
+    <div id="disease-results"></div>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-12 col-xl-7">
+      <div class="card">
+        <div class="card-header border-0 py-3 px-4 d-flex align-items-center justify-content-between">
+          <div class="section-label mb-0" style="font-size:.72rem">SO'NGGI XODIMLAR</div>
+          <a href="{% url 'staff_list' %}" class="btn btn-sm btn-primary">Barchasi →</a>
+        </div>
+        <div class="card-body p-0">
+          <table class="table mb-0">
+            <thead><tr><th>Xodim</th><th>Lavozim</th><th>Kasalxona</th><th>Tajriba</th><th></th></tr></thead>
+            <tbody>
+              {% for person in recent_staff %}
+              <tr>
+                <td><div class="d-flex align-items-center gap-2"><div class="avatar">{{ person.first_name.0 }}{{ person.last_name.0 }}</div><div><div style="font-weight:600;font-size:.88rem">{{ person.full_name }}</div><div class="desk-td-sub">{{ person.age }} yosh</div></div></div></td>
+                <td><span class="badge-pos">{{ person.get_position_display }}</span></td>
+                <td class="desk-td-text">{{ person.hospital.name }}</td>
+                <td class="desk-td-text"><i class="bi bi-briefcase me-1"></i>{{ person.experience_years }} yil</td>
+                <td><a href="{% url 'staff_detail' person.pk %}" class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i></a></td>
+              </tr>
+              {% empty %}<tr><td colspan="5" class="text-center py-4 text-muted">Xodim yo'q</td></tr>{% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-xl-5">
+      <div class="card mb-3">
+        <div class="card-header border-0 py-3 px-4 d-flex align-items-center justify-content-between">
+          <div class="section-label mb-0" style="font-size:.72rem">TOP KASALXONALAR</div>
+          <a href="{% url 'hospital_list' %}" class="btn btn-sm btn-primary">Barchasi →</a>
+        </div>
+        <div class="card-body p-0">
+          {% for h in top_hospitals %}
+          <div class="d-flex align-items-center gap-3 px-4 py-3" style="border-bottom:1px solid #f1f5f9;">
+            <div style="width:36px;height:36px;border-radius:10px;background:#eff6ff;display:flex;align-items:center;justify-content:center;"><i class="bi bi-hospital text-primary"></i></div>
+            <div class="flex-fill"><div style="font-weight:600;font-size:.88rem">{{ h.name }}</div><div class="desk-td-sub">{{ h.get_region_display }}</div></div>
+            <span class="badge rounded-pill {% if h.sc > 0 %}bg-primary{% else %}bg-secondary bg-opacity-25 text-secondary{% endif %}" style="font-size:.75rem">{{ h.sc }}</span>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header border-0 py-3 px-4"><div class="section-label mb-0" style="font-size:.72rem">LAVOZIMLAR</div></div>
+        <div class="card-body">
+          {% for stat in position_stats %}
+          <div class="mb-3">
+            <div class="d-flex justify-content-between mb-1"><span class="desk-stat-name">{{ stat.name }}</span><span class="desk-stat-count">{{ stat.count }} ta</span></div>
+            <div class="progress" style="height:6px;border-radius:10px;"><div class="progress-bar bg-primary" style="width:{{ stat.count }}0%"></div></div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const SEARCH_URL = "{% url 'disease_search' %}";
+
+function mobQuick(term) {
+  document.getElementById('mob-disease-input').value = term;
+  doMobSearch();
+}
+
+function doMobSearch() {
+  const input = document.getElementById('mob-disease-input');
+  const resultsDiv = document.getElementById('mob-disease-results');
+  const spinner = document.getElementById('mob-dsearch-spinner');
+  const q = input.value.trim();
+  if (!q) { resultsDiv.innerHTML = ''; return; }
+
+  spinner.style.display = 'block';
+  resultsDiv.innerHTML = '';
+
+  fetch(SEARCH_URL + '?q=' + encodeURIComponent(q))
+    .then(r => r.json())
+    .then(data => {
+      spinner.style.display = 'none';
+      renderResults(resultsDiv, data.results, q);
+    })
+    .catch(() => {
+      spinner.style.display = 'none';
+      resultsDiv.innerHTML = '<div class="no-result">Xatolik yuz berdi.</div>';
+    });
+}
+
+function quickSearch(term) {
+  document.getElementById('disease-input').value = term;
+  doSearch();
+}
+
+function doSearch() {
+  const input = document.getElementById('disease-input');
+  const resultsDiv = document.getElementById('disease-results');
+  const spinner = document.getElementById('dsearch-spinner');
+  const q = input.value.trim();
+  if (!q) { resultsDiv.innerHTML = ''; return; }
+
+  spinner.style.display = 'block';
+  resultsDiv.innerHTML = '';
+
+  fetch(SEARCH_URL + '?q=' + encodeURIComponent(q))
+    .then(r => r.json())
+    .then(data => {
+      spinner.style.display = 'none';
+      renderResults(resultsDiv, data.results, q);
+    })
+    .catch(() => {
+      spinner.style.display = 'none';
+      resultsDiv.innerHTML = '<div class="no-result">Xatolik yuz berdi. Qayta urinib ko\'ring.</div>';
+    });
+}
+
+function renderResults(container, results, q) {
+  if (!results.length) {
+    container.innerHTML = '<div class="no-result"><i class="bi bi-emoji-frown"></i> "<b>' + q + '</b>" bo\'yicha kasalxona topilmadi.</div>';
+    return;
+  }
+  let html = '<div style="color:rgba(255,255,255,.7);font-size:.78rem;margin-bottom:8px;"><i class="bi bi-check2-circle"></i> ' + results.length + ' ta kasalxona topildi</div>';
+  results.forEach(h => {
+    const badge = h.spec_count > 0
+      ? '<span class="result-badge green"><i class="bi bi-person-check"></i> ' + h.spec_count + ' mutaxassis</span>'
+      : '<span class="result-badge"><i class="bi bi-people"></i> ' + h.staff_count + ' xodim</span>';
+    html += `
+      <a href="/hospitals/${h.id}/" class="result-card">
+        <div class="result-icon"><i class="bi bi-hospital-fill"></i></div>
+        <div class="flex-fill">
+          <div class="result-name">${h.name}</div>
+          <div class="result-meta"><i class="bi bi-geo-alt"></i> ${h.region} &nbsp;·&nbsp; ${h.type}</div>
+          ${h.address ? '<div class="result-meta"><i class="bi bi-pin-map"></i> ' + h.address + '</div>' : ''}
+          ${h.phone ? '<div class="result-meta"><i class="bi bi-telephone"></i> ' + h.phone + '</div>' : ''}
+        </div>
+        ${badge}
+      </a>`;
+  });
+  container.innerHTML = html;
+}
+</script>
+{% endblock %}

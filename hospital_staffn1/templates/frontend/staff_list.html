@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% block title %}Xodimlar — MedStaff{% endblock %}
+{% block page_title %}Xodimlar ro'yxati{% endblock %}
+
+{% block content %}
+<!-- Filters -->
+<div class="card p-3 mb-4">
+    <form method="get" class="row g-2 align-items-end">
+        <div class="col-md-3">
+            <div class="search-box">
+                <i class="bi bi-search search-icon"></i>
+                <input type="text" name="search" class="form-control" placeholder="Ism, kasalxona qidirish..."
+                       value="{{ filters.search|default:'' }}">
+            </div>
+        </div>
+        <div class="col-md-2">
+            <select name="position" class="form-select">
+                <option value="">Barcha lavozimlar</option>
+                {% for code, name in positions %}
+                <option value="{{ code }}" {% if filters.position == code %}selected{% endif %}>{{ name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-2">
+            <select name="region" class="form-select">
+                <option value="">Barcha viloyatlar</option>
+                {% for code, name in regions %}
+                <option value="{{ code }}" {% if filters.region == code %}selected{% endif %}>{{ name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-2">
+            <select name="hospital" class="form-select">
+                <option value="">Barcha kasalxonalar</option>
+                {% for h in hospitals %}
+                <option value="{{ h.pk }}" {% if filters.hospital == h.pk|stringformat:'s' %}selected{% endif %}>{{ h.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-1">
+            <input type="number" name="exp_min" class="form-control" placeholder="Taj min" min="0" value="{{ filters.exp_min|default:'' }}">
+        </div>
+        <div class="col-md-1">
+            <input type="number" name="exp_max" class="form-control" placeholder="Taj max" min="0" value="{{ filters.exp_max|default:'' }}">
+        </div>
+        <div class="col-md-1 d-flex gap-1">
+            <button type="submit" class="btn btn-primary flex-fill"><i class="bi bi-search"></i></button>
+            <a href="{% url 'staff_list' %}" class="btn btn-outline-secondary"><i class="bi bi-x"></i></a>
+        </div>
+    </form>
+</div>
+
+<!-- Header -->
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h5 class="fw-bold mb-0" style="color:#0f172a">Xodimlar</h5>
+        <small class="text-muted">{{ total }} ta xodim topildi</small>
+    </div>
+    <a href="{% url 'staff_add' %}" class="btn btn-primary">
+        <i class="bi bi-person-plus-fill me-1"></i>Xodim qo'shish
+    </a>
+</div>
+
+<!-- Table -->
+<div class="card">
+    <div class="table-responsive">
+        <table class="table mb-0">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Xodim</th>
+                    <th>Lavozim</th>
+                    <th>Kasalxona</th>
+                    <th>Viloyat</th>
+                    <th>Yosh</th>
+                    <th>Tajriba</th>
+                    <th>Ish turi</th>
+                    <th>Telefon</th>
+                    <th>Amal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for person in staff %}
+                <tr>
+                    <td class="text-muted" style="font-size:.8rem">{{ forloop.counter }}</td>
+                    <td>
+                        <div class="d-flex align-items-center gap-2">
+                            {% if person.photo %}
+                            <img src="{{ person.photo.url }}" width="40" height="40" style="border-radius:11px;object-fit:cover">
+                            {% else %}
+                            <div class="avatar">{{ person.first_name.0 }}{{ person.last_name.0 }}</div>
+                            {% endif %}
+                            <div>
+                                <div class="fw-semibold" style="font-size:.86rem">{{ person.full_name }}</div>
+                                {% if person.specialization %}
+                                <div class="text-muted" style="font-size:.74rem">{{ person.specialization }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </td>
+                    <td><span class="badge-pos">{{ person.get_position_display }}</span></td>
+                    <td style="font-size:.83rem;max-width:150px">
+                        <a href="{% url 'hospital_detail' person.hospital.pk %}" class="text-decoration-none fw-semibold" style="color:#1e40af">
+                            {{ person.hospital.name }}
+                        </a>
+                    </td>
+                    <td><span class="badge-reg">{{ person.hospital.get_region_display }}</span></td>
+                    <td style="font-size:.84rem">{{ person.age }}</td>
+                    <td style="font-size:.84rem"><span class="fw-semibold">{{ person.experience_years }}</span> yil</td>
+                    <td>
+                        {% if person.shift == 'kunduzgi' %}
+                        <span class="badge" style="background:#fef3c7;color:#92400e;border-radius:8px;font-size:.74rem">☀️ Kunduzgi</span>
+                        {% elif person.shift == 'tungi' %}
+                        <span class="badge" style="background:#1e1b4b;color:#a5b4fc;border-radius:8px;font-size:.74rem">🌙 Tungi</span>
+                        {% else %}
+                        <span class="badge" style="background:#f1f5f9;color:#475569;border-radius:8px;font-size:.74rem">🔄 Aralash</span>
+                        {% endif %}
+                    </td>
+                    <td style="font-size:.82rem">{{ person.phone|default:"—" }}</td>
+                    <td>
+                        <div class="d-flex gap-1">
+                            <a href="{% url 'staff_detail' person.pk %}" class="btn btn-sm btn-outline-primary" title="Ko'rish"><i class="bi bi-eye"></i></a>
+                            <a href="{% url 'staff_edit' person.pk %}" class="btn btn-sm btn-outline-secondary" title="Tahrirlash"><i class="bi bi-pencil"></i></a>
+                            <a href="{% url 'staff_delete' person.pk %}" class="btn btn-sm btn-outline-danger" title="O'chirish"><i class="bi bi-trash"></i></a>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="10" class="text-center text-muted py-5">
+                        <i class="bi bi-people fs-2 d-block mb-2 opacity-25"></i>
+                        Xodim topilmadi. <a href="{% url 'staff_add' %}">Yangi qo'shish</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

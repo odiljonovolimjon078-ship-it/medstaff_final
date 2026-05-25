@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }} — MedStaff{% endblock %}
+{% block page_title %}{{ title }}{% endblock %}
+{% block extra_css %}<style>.mob-form input,.mob-form select,.mob-form textarea{width:100%;padding:11px 12px;border:1px solid #e5e7eb;border-radius:10px;background:#fff;color:#0f172a;font-size:14px;font-family:inherit;}.mob-form input:focus,.mob-form select:focus,.mob-form textarea:focus{outline:none;border-color:#3b82f6;}</style>{% endblock %}
+{% block content %}
+<style>
+body.dark .card,
+body.dark .card-header,
+body.dark .card-body,
+body.dark .card-footer { background: #111827 !important; border-color: #1f2937 !important; color: #e2e8f0 !important; }
+body.dark .table { color: #e2e8f0 !important; }
+body.dark .table thead th { background: #1f2937 !important; color: #94a3b8 !important; border-color: #374151 !important; }
+body.dark .table tbody td { border-color: #1f2937 !important; color: #e2e8f0 !important; }
+body.dark .table tbody tr { background: #111827 !important; }
+body.dark .table tbody tr:hover { background: #1f2937 !important; }
+body.dark [style*="color:#475569"] { color: #94a3b8 !important; }
+body.dark [style*="color:#64748b"] { color: #6b7280 !important; }
+body.dark [style*="color:#94a3b8"] { color: #64748b !important; }
+body.dark [style*="color:#0f172a"],
+body.dark [style*="color:#1e293b"] { color: #e2e8f0 !important; }
+body.dark [style*="border-bottom:1px solid #f1f5f9"],
+body.dark [style*="border-top:1px solid #f1f5f9"] { border-color: #1f2937 !important; }
+body.dark [style*="background:#eff6ff"] { background: #1e3a5f !important; }
+body.dark [style*="background:#f1f5f9"] { background: #1f2937 !important; }
+body.dark [style*="background:#f8fafc"] { background: #1a2236 !important; }
+body.dark [style*="background:#dbeafe"] { background: #1e3a5f !important; }
+body.dark .form-control, body.dark .form-select { background: #1f2937 !important; border-color: #374151 !important; color: #e2e8f0 !important; }
+body.dark .form-label { color: #94a3b8 !important; }
+body.dark .text-muted { color: #6b7280 !important; }
+body.dark h5, body.dark h6 { color: #e2e8f0 !important; }
+body.dark .border-bottom { border-color: #1f2937 !important; }
+body.dark .border-top { border-color: #1f2937 !important; }
+body.dark select option { background: #1f2937; color: #e2e8f0; }
+</style>
+
+<!-- MOBILE -->
+<div class="mob-page-bar"><a href="{% url 'hospital_list' %}" style="font-size:14px;font-weight:600;color:#2563eb;display:flex;align-items:center;gap:5px;"><i class="bi bi-arrow-left"></i>Orqaga</a></div>
+<div class="mob-form" style="padding:0 16px 16px;">
+  <form method="post">{% csrf_token %}
+    <div class="mob-section-div"><i class="fa-regular fa-hospital"></i> Kasalxona ma'lumotlari</div>
+    <div class="mob-form-group"><label class="mob-form-label">Nomi *</label>{{ form.name }}</div>
+    <div style="display:flex;gap:10px;"><div class="mob-form-group" style="flex:1;"><label class="mob-form-label">Turi *</label>{{ form.hospital_type }}</div><div class="mob-form-group" style="flex:1;"><label class="mob-form-label">Viloyat *</label>{{ form.region }}</div></div>
+    <div class="mob-form-group"><label class="mob-form-label">Manzil *</label>{{ form.address }}</div>
+    <div class="mob-form-group"><label class="mob-form-label">O'rin soni</label>{{ form.bed_count }}</div>
+    <div style="display:flex;gap:10px;"><div class="mob-form-group" style="flex:1;"><label class="mob-form-label">Telefon</label>{{ form.phone }}</div><div class="mob-form-group" style="flex:1;"><label class="mob-form-label">Email</label>{{ form.email }}</div></div>
+    <div class="mob-form-group"><label class="mob-form-label">Veb-sayt</label>{{ form.website }}</div>
+    {% for field in form %}{% if field.errors %}<div class="mob-msg error" style="margin:0 0 8px;border-radius:8px;padding:8px 12px;font-size:13px;display:flex;align-items:center;gap:6px;background:#fee2e2;color:#991b1b;">{{ field.label }}: {% for e in field.errors %}{{ e }}{% endfor %}</div>{% endif %}{% endfor %}
+    <div style="display:flex;gap:10px;margin-top:8px;"><button type="submit" class="mob-big-btn" style="flex:1;"><i class="bi bi-check-lg"></i> Saqlash</button><a href="{% url 'hospital_list' %}" class="mob-big-btn outline" style="flex:0 0 auto;padding:13px 16px;"><i class="bi bi-x-lg"></i></a></div>
+  </form>
+</div>
+
+<!-- DESKTOP -->
+<div class="d-none d-md-block">
+  <div class="d-flex gap-3 mb-4 align-items-center"><a href="{% url 'hospital_list' %}" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left me-1"></i>Orqaga</a><h4 class="mb-0 fw-700">{{ title }}</h4></div>
+  <div class="card"><div class="card-body" style="max-width:600px;">
+    <form method="post">{% csrf_token %}
+      <div class="row g-3">
+        <div class="col-12"><label class="form-label">Kasalxona nomi *</label>{{ form.name }}</div>
+        <div class="col-md-6"><label class="form-label">Turi *</label>{{ form.hospital_type }}</div>
+        <div class="col-md-6"><label class="form-label">Viloyat *</label>{{ form.region }}</div>
+        <div class="col-12"><label class="form-label">Manzil *</label>{{ form.address }}</div>
+        <div class="col-md-4"><label class="form-label">O'rin soni</label>{{ form.bed_count }}</div>
+        <div class="col-md-4"><label class="form-label">Telefon</label>{{ form.phone }}</div>
+        <div class="col-md-4"><label class="form-label">Email</label>{{ form.email }}</div>
+        <div class="col-12"><label class="form-label">Veb-sayt</label>{{ form.website }}</div>
+        {% for field in form %}{% if field.errors %}<div class="col-12"><div class="alert alert-danger py-2">{{ field.label }}: {% for e in field.errors %}{{ e }}{% endfor %}</div></div>{% endif %}{% endfor %}
+        <div class="col-12 d-flex gap-2"><button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-1"></i>Saqlash</button><a href="{% url 'hospital_list' %}" class="btn btn-outline-secondary">Bekor</a></div>
+      </div>
+    </form>
+  </div></div>
+</div>
+{% endblock %}

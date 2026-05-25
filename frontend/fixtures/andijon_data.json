@@ -1,0 +1,453 @@
+[
+  {
+    "model": "frontend.hospital",
+    "pk": 1,
+    "fields": {
+      "name": "Andijon viloyat ko'p tarmoqli tibbiyot markazi",
+      "hospital_type": "davlat",
+      "region": "andijon",
+      "address": "Andijon sh., Navoi ko'chasi 1",
+      "phone": "+998742237000",
+      "email": "avktm@med.uz",
+      "website": "",
+      "bed_count": 800,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "frontend.hospital",
+    "pk": 2,
+    "fields": {
+      "name": "Andijon davlat tibbiyot instituti klinikasi",
+      "hospital_type": "davlat",
+      "region": "andijon",
+      "address": "Andijon sh., Yuqori Qarabog' ko'chasi 1",
+      "phone": "+998742252040",
+      "email": "adti@med.uz",
+      "website": "",
+      "bed_count": 600,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "frontend.hospital",
+    "pk": 3,
+    "fields": {
+      "name": "Andijon viloyat bolalar ko'p tarmoqli tibbiyot markazi",
+      "hospital_type": "davlat",
+      "region": "andijon",
+      "address": "Andijon sh., Bog'ishamol ko'chasi 15",
+      "phone": "+998742237500",
+      "email": "",
+      "website": "",
+      "bed_count": 350,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "frontend.hospital",
+    "pk": 4,
+    "fields": {
+      "name": "Andijon viloyat onkologiya markazi",
+      "hospital_type": "davlat",
+      "region": "andijon",
+      "address": "Andijon sh., Mustaqillik ko'chasi 45",
+      "phone": "+998742220011",
+      "email": "",
+      "website": "",
+      "bed_count": 200,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "frontend.hospital",
+    "pk": 5,
+    "fields": {
+      "name": "Andijon viloyat yurak-qon tomir kasalliklari markazi",
+      "hospital_type": "davlat",
+      "region": "andijon",
+      "address": "Andijon sh., Amir Temur ko'chasi 22",
+      "phone": "+998742231500",
+      "email": "",
+      "website": "",
+      "bed_count": 150,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "frontend.hospital",
+    "pk": 6,
+    "fields": {
+      "name": "Andijon viloyat psixiatriya kasalxonasi",
+      "hospital_type": "davlat",
+      "region": "andijon",
+      "address": "Andijon tumani, Dehqonobod MFY",
+      "phone": "+998742290010",
+      "email": "",
+      "website": "",
+      "bed_count": 300,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "frontend.hospital",
+    "pk": 7,
+    "fields": {
+      "name": "Andijon viloyat tez tibbiy yordam markazi",
+      "hospital_type": "tez yordam",
+      "region": "andijon",
+      "address": "Andijon sh., Navoi ko'chasi 56",
+      "phone": "+998742234444",
+      "email": "",
+      "website": "",
+      "bed_count": 100,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "frontend.hospital",
+    "pk": 8,
+    "fields": {
+      "name": "Andijon viloyat sanitariya-epidemiologiya markazi",
+      "hospital_type": "davlat",
+      "region": "andijon",
+      "address": "Andijon sh., Bobur ko'chasi 18",
+      "phone": "+998742226600",
+      "email": "",
+      "website": "",
+      "bed_count": 0,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "frontend.hospital",
+    "pk": 9,
+    "fields": {
+      "name": "MedConnect Premium Clinic",
+      "hospital_type": "xususiy",
+      "region": "andijon",
+      "address": "Andijon sh., Navoiy ko'chasi 8A",
+      "phone": "+998742255500",
+      "email": "info@medconnect.uz",
+      "website": "https://medconnect.uz",
+      "bed_count": 80,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "frontend.hospital",
+    "pk": 10,
+    "fields": {
+      "name": "ADN Hospital (Xususiy klinika)",
+      "hospital_type": "xususiy",
+      "region": "andijon",
+      "address": "Andijon sh., Mustaqillik ko'chasi 12",
+      "phone": "+998742280808",
+      "email": "adn@hospital.uz",
+      "website": "",
+      "bed_count": 60,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "frontend.hospital",
+    "pk": 11,
+    "fields": {
+      "name": "Andijon shahar 1-son shahar poliklinikasi",
+      "hospital_type": "poliklinika",
+      "region": "andijon",
+      "address": "Andijon sh., Hamza ko'chasi 5",
+      "phone": "+998742231001",
+      "email": "",
+      "website": "",
+      "bed_count": 0,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "frontend.hospital",
+    "pk": 12,
+    "fields": {
+      "name": "Andijon shahar 2-son shahar poliklinikasi",
+      "hospital_type": "poliklinika",
+      "region": "andijon",
+      "address": "Andijon sh., Navoiy ko'chasi 33",
+      "phone": "+998742231002",
+      "email": "",
+      "website": "",
+      "bed_count": 0,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "frontend.hospital",
+    "pk": 13,
+    "fields": {
+      "name": "Andijon shahar 3-son shahar poliklinikasi",
+      "hospital_type": "poliklinika",
+      "region": "andijon",
+      "address": "Andijon sh., Bobur ko'chasi 44",
+      "phone": "+998742231003",
+      "email": "",
+      "website": "",
+      "bed_count": 0,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "frontend.hospital",
+    "pk": 14,
+    "fields": {
+      "name": "Andijon viloyat stomatologiya markazi",
+      "hospital_type": "poliklinika",
+      "region": "andijon",
+      "address": "Andijon sh., Amir Temur ko'chasi 7",
+      "phone": "+998742222233",
+      "email": "",
+      "website": "",
+      "bed_count": 0,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "frontend.hospital",
+    "pk": 15,
+    "fields": {
+      "name": "Andijon viloyat ko'z kasalliklari markazi",
+      "hospital_type": "davlat",
+      "region": "andijon",
+      "address": "Andijon sh., Mustaqillik ko'chasi 30",
+      "phone": "+998742229900",
+      "email": "",
+      "website": "",
+      "bed_count": 120,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "frontend.hospital",
+    "pk": 16,
+    "fields": {
+      "name": "Andijon viloyat akusherlik va ginekologiya markazi",
+      "hospital_type": "davlat",
+      "region": "andijon",
+      "address": "Andijon sh., Tinchlik ko'chasi 9",
+      "phone": "+998742238800",
+      "email": "",
+      "website": "",
+      "bed_count": 250,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "frontend.hospital",
+    "pk": 17,
+    "fields": {
+      "name": "Andijon viloyat dermatovenerologiya dispanseri",
+      "hospital_type": "davlat",
+      "region": "andijon",
+      "address": "Andijon sh., Hamza ko'chasi 22",
+      "phone": "+998742224477",
+      "email": "",
+      "website": "",
+      "bed_count": 80,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "frontend.hospital",
+    "pk": 18,
+    "fields": {
+      "name": "Andijon viloyat sil kasalliklari dispanseri",
+      "hospital_type": "davlat",
+      "region": "andijon",
+      "address": "Andijon tumani, Ko'k Ko'l MFY",
+      "phone": "+998742291100",
+      "email": "",
+      "website": "",
+      "bed_count": 180,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "frontend.hospital",
+    "pk": 19,
+    "fields": {
+      "name": "Oltinko'l tuman markaziy kasalxonasi",
+      "hospital_type": "davlat",
+      "region": "andijon",
+      "address": "Oltinko'l tumani, Markaziy ko'cha 1",
+      "phone": "+998743520011",
+      "email": "",
+      "website": "",
+      "bed_count": 160,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "frontend.hospital",
+    "pk": 20,
+    "fields": {
+      "name": "Asaka tuman markaziy kasalxonasi",
+      "hospital_type": "davlat",
+      "region": "andijon",
+      "address": "Asaka tumani, Mustaqillik ko'chasi 5",
+      "phone": "+998743560022",
+      "email": "",
+      "website": "",
+      "bed_count": 200,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "frontend.hospital",
+    "pk": 21,
+    "fields": {
+      "name": "Baliqchi tuman markaziy kasalxonasi",
+      "hospital_type": "davlat",
+      "region": "andijon",
+      "address": "Baliqchi tumani, Navoi ko'chasi 3",
+      "phone": "+998743580033",
+      "email": "",
+      "website": "",
+      "bed_count": 120,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "frontend.hospital",
+    "pk": 22,
+    "fields": {
+      "name": "Bo'z tuman markaziy kasalxonasi",
+      "hospital_type": "davlat",
+      "region": "andijon",
+      "address": "Bo'z tumani, Markaziy ko'cha 2",
+      "phone": "+998743600044",
+      "email": "",
+      "website": "",
+      "bed_count": 100,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "frontend.hospital",
+    "pk": 23,
+    "fields": {
+      "name": "Jalolquduq tuman markaziy kasalxonasi",
+      "hospital_type": "davlat",
+      "region": "andijon",
+      "address": "Jalolquduq tumani, Bog'ishamol ko'chasi 1",
+      "phone": "+998743620055",
+      "email": "",
+      "website": "",
+      "bed_count": 130,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "frontend.hospital",
+    "pk": 24,
+    "fields": {
+      "name": "Xo'jaobod tuman markaziy kasalxonasi",
+      "hospital_type": "davlat",
+      "region": "andijon",
+      "address": "Xo'jaobod tumani, Navoi ko'chasi 7",
+      "phone": "+998743640066",
+      "email": "",
+      "website": "",
+      "bed_count": 110,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "frontend.hospital",
+    "pk": 25,
+    "fields": {
+      "name": "Marhamat tuman markaziy kasalxonasi",
+      "hospital_type": "davlat",
+      "region": "andijon",
+      "address": "Marhamat tumani, Mustaqillik ko'chasi 4",
+      "phone": "+998743660077",
+      "email": "",
+      "website": "",
+      "bed_count": 140,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+
+  {"model":"frontend.staff","pk":1,"fields":{"first_name":"Shaxlo","last_name":"Qodirova","middle_name":"Baxtiyorovna","age":38,"position":"shifokor","specialization":"Terapevt","hospital":1,"experience_years":13,"shift":"kunduzgi","phone":"+998901234501","email":"s.qodirova@med.uz","photo":null,"salary":"4500000","is_active":true,"hired_date":"2011-03-15","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":2,"fields":{"first_name":"Kamoliddin","last_name":"Ergashev","middle_name":"Hamidovich","age":46,"position":"jarroh","specialization":"Umumiy jarroh","hospital":2,"experience_years":22,"shift":"aralash","phone":"+998901234502","email":"k.ergashev@adti.uz","photo":null,"salary":"7000000","is_active":true,"hired_date":"2002-09-01","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":3,"fields":{"first_name":"Nilufar","last_name":"Rahimova","middle_name":"Saidovna","age":32,"position":"pediatr","specialization":"Bolalar shifokori","hospital":3,"experience_years":8,"shift":"kunduzgi","phone":"+998901234503","email":"","photo":null,"salary":"4000000","is_active":true,"hired_date":"2016-06-10","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":4,"fields":{"first_name":"Jasur","last_name":"Toshmatov","middle_name":"Aliyevich","age":42,"position":"kardiolog","specialization":"Kardiologiya","hospital":5,"experience_years":18,"shift":"kunduzgi","phone":"+998901234504","email":"j.toshmatov@med.uz","photo":null,"salary":"6500000","is_active":true,"hired_date":"2006-01-20","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":5,"fields":{"first_name":"Malika","last_name":"Yusupova","middle_name":"Otabekovna","age":28,"position":"hamshira","specialization":"Jarrohlik bo'limi","hospital":1,"experience_years":5,"shift":"aralash","phone":"+998901234505","email":"","photo":null,"salary":"2500000","is_active":true,"hired_date":"2019-04-01","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":6,"fields":{"first_name":"Bobur","last_name":"Xasanov","middle_name":"Jamshidovich","age":35,"position":"radiolog","specialization":"Rentgenologiya","hospital":2,"experience_years":10,"shift":"kunduzgi","phone":"+998901234506","email":"","photo":null,"salary":"5000000","is_active":true,"hired_date":"2014-08-15","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":7,"fields":{"first_name":"Dilorom","last_name":"Nazarova","middle_name":"Rustamovna","age":44,"position":"nevropatolog","specialization":"Nevrologiya","hospital":1,"experience_years":20,"shift":"kunduzgi","phone":"+998901234507","email":"d.nazarova@med.uz","photo":null,"salary":"6000000","is_active":true,"hired_date":"2004-02-10","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":8,"fields":{"first_name":"Sardor","last_name":"Mirzayev","middle_name":"Ulugbekovich","age":30,"position":"laborant","specialization":"Klinik laboratoriya","hospital":1,"experience_years":6,"shift":"kunduzgi","phone":"+998901234508","email":"","photo":null,"salary":"2800000","is_active":true,"hired_date":"2018-11-01","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":9,"fields":{"first_name":"Gulnora","last_name":"Abdullayeva","middle_name":"Ismoilovna","age":39,"position":"stomatolог","specialization":"Terapevtik stomatologiya","hospital":14,"experience_years":15,"shift":"kunduzgi","phone":"+998901234509","email":"","photo":null,"salary":"5500000","is_active":true,"hired_date":"2009-07-20","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":10,"fields":{"first_name":"Ulugbek","last_name":"Tursunov","middle_name":"Baxromovich","age":50,"position":"jarroh","specialization":"Onkologiya jarrohi","hospital":4,"experience_years":25,"shift":"aralash","phone":"+998901234510","email":"u.tursunov@onko.uz","photo":null,"salary":"9000000","is_active":true,"hired_date":"1999-03-01","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":11,"fields":{"first_name":"Zulfiya","last_name":"Karimova","middle_name":"Nematovna","age":34,"position":"hamshira","specialization":"Pediatriya bo'limi","hospital":3,"experience_years":9,"shift":"aralash","phone":"+998901234511","email":"","photo":null,"salary":"2600000","is_active":true,"hired_date":"2015-09-15","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":12,"fields":{"first_name":"Akbar","last_name":"Sodiqov","middle_name":"Ravshanbek o'g'li","age":27,"position":"shifokor","specialization":"Umumiy amaliyot","hospital":11,"experience_years":3,"shift":"kunduzgi","phone":"+998901234512","email":"","photo":null,"salary":"3200000","is_active":true,"hired_date":"2021-08-01","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":13,"fields":{"first_name":"Mohira","last_name":"Ergasheva","middle_name":"Dilshodovna","age":36,"position":"shifokor","specialization":"Endokrinologiya","hospital":1,"experience_years":12,"shift":"kunduzgi","phone":"+998901234513","email":"","photo":null,"salary":"5200000","is_active":true,"hired_date":"2012-05-20","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":14,"fields":{"first_name":"Farhodjon","last_name":"Muxtarov","middle_name":"Iskandarovich","age":48,"position":"psixiatr","specialization":"Klinik psixiatriya","hospital":6,"experience_years":23,"shift":"aralash","phone":"+998901234514","email":"","photo":null,"salary":"6200000","is_active":true,"hired_date":"2001-10-10","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":15,"fields":{"first_name":"Sevara","last_name":"Holiqova","middle_name":"Mansurovna","age":31,"position":"kardiolog","specialization":"Funksional diagnostika","hospital":5,"experience_years":7,"shift":"kunduzgi","phone":"+998901234515","email":"","photo":null,"salary":"5800000","is_active":true,"hired_date":"2017-02-14","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":16,"fields":{"first_name":"Nodir","last_name":"Razzaqov","middle_name":"Shavkatovich","age":40,"position":"anesteziolog","specialization":"Reanimatologiya","hospital":2,"experience_years":16,"shift":"tungi","phone":"+998901234516","email":"","photo":null,"salary":"7500000","is_active":true,"hired_date":"2008-12-01","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":17,"fields":{"first_name":"Barno","last_name":"Hasanova","middle_name":"Alimovna","age":29,"position":"hamshira","specialization":"Tez yordam bo'limi","hospital":7,"experience_years":4,"shift":"aralash","phone":"+998901234517","email":"","photo":null,"salary":"2400000","is_active":true,"hired_date":"2020-06-15","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":18,"fields":{"first_name":"Avazbek","last_name":"Normatov","middle_name":"Qodirovich","age":45,"position":"shifokor","specialization":"Ko'z kasalliklari","hospital":15,"experience_years":19,"shift":"kunduzgi","phone":"+998901234518","email":"","photo":null,"salary":"6000000","is_active":true,"hired_date":"2005-04-20","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":19,"fields":{"first_name":"Lobar","last_name":"Qosimova","middle_name":"Bahodir qizi","age":33,"position":"farmatsevt","specialization":"Klinik farmakologiya","hospital":9,"experience_years":8,"shift":"kunduzgi","phone":"+998901234519","email":"","photo":null,"salary":"3800000","is_active":true,"hired_date":"2016-01-10","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":20,"fields":{"first_name":"Sherzod","last_name":"Pulatov","middle_name":"Toymurodovich","age":37,"position":"jarroh","specialization":"Laparoskopik jarrohlik","hospital":9,"experience_years":13,"shift":"kunduzgi","phone":"+998901234520","email":"s.pulatov@medconnect.uz","photo":null,"salary":"8500000","is_active":true,"hired_date":"2011-07-01","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":21,"fields":{"first_name":"Nasiba","last_name":"Yunusova","middle_name":"Hamidjon qizi","age":26,"position":"hamshira","specialization":"Onkologiya bo'limi","hospital":4,"experience_years":2,"shift":"aralash","phone":"+998901234521","email":"","photo":null,"salary":"2300000","is_active":true,"hired_date":"2022-03-01","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":22,"fields":{"first_name":"Islom","last_name":"Xo'jayev","middle_name":"Rustamovich","age":43,"position":"shifokor","specialization":"Urologiya","hospital":1,"experience_years":17,"shift":"kunduzgi","phone":"+998901234522","email":"","photo":null,"salary":"6300000","is_active":true,"hired_date":"2007-09-10","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":23,"fields":{"first_name":"Kumush","last_name":"Tojiboyeva","middle_name":"Ulmasovna","age":41,"position":"stomatolог","specialization":"Ortopedik stomatologiya","hospital":14,"experience_years":17,"shift":"kunduzgi","phone":"+998901234523","email":"","photo":null,"salary":"6000000","is_active":true,"hired_date":"2007-06-15","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":24,"fields":{"first_name":"Ravshan","last_name":"Olimov","middle_name":"Nurbek o'g'li","age":52,"position":"nevropatolog","specialization":"Epileptologiya","hospital":6,"experience_years":27,"shift":"kunduzgi","phone":"+998901234524","email":"","photo":null,"salary":"7800000","is_active":true,"hired_date":"1997-11-20","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":25,"fields":{"first_name":"Shahnoza","last_name":"Mamatova","middle_name":"Feruzovna","age":30,"position":"laborant","specialization":"Biokimyoviy tahlil","hospital":2,"experience_years":6,"shift":"kunduzgi","phone":"+998901234525","email":"","photo":null,"salary":"2900000","is_active":true,"hired_date":"2018-04-05","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":26,"fields":{"first_name":"Eldor","last_name":"Qodirov","middle_name":"Sanjar o'g'li","age":35,"position":"shifokor","specialization":"Infektsion kasalliklar","hospital":1,"experience_years":10,"shift":"aralash","phone":"+998901234526","email":"","photo":null,"salary":"5000000","is_active":true,"hired_date":"2014-10-01","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":27,"fields":{"first_name":"Maftuna","last_name":"Ismoilova","middle_name":"Baxtiyor qizi","age":28,"position":"hamshira","specialization":"Ko'z bo'limi","hospital":15,"experience_years":4,"shift":"kunduzgi","phone":"+998901234527","email":"","photo":null,"salary":"2500000","is_active":true,"hired_date":"2020-09-01","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":28,"fields":{"first_name":"Sanjar","last_name":"Botirov","middle_name":"Azimjon o'g'li","age":39,"position":"radiolog","specialization":"KT va MRT diagnostika","hospital":10,"experience_years":14,"shift":"kunduzgi","phone":"+998901234528","email":"","photo":null,"salary":"6500000","is_active":true,"hired_date":"2010-07-15","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":29,"fields":{"first_name":"Ozoda","last_name":"Tursunova","middle_name":"Mansur qizi","age":47,"position":"shifokor","specialization":"Reumatologiya","hospital":1,"experience_years":22,"shift":"kunduzgi","phone":"+998901234529","email":"","photo":null,"salary":"6800000","is_active":true,"hired_date":"2002-05-10","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":30,"fields":{"first_name":"Dilshod","last_name":"Askarov","middle_name":"Ibrohim o'g'li","age":33,"position":"anesteziolog","specialization":"Umumiy anesteziya","hospital":1,"experience_years":9,"shift":"tungi","phone":"+998901234530","email":"","photo":null,"salary":"7000000","is_active":true,"hired_date":"2015-12-01","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":31,"fields":{"first_name":"Feruza","last_name":"Norqo'ziyeva","middle_name":"Hamid qizi","age":35,"position":"shifokor","specialization":"Ginekologiya","hospital":16,"experience_years":11,"shift":"kunduzgi","phone":"+998901234531","email":"","photo":null,"salary":"5400000","is_active":true,"hired_date":"2013-03-08","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":32,"fields":{"first_name":"Murod","last_name":"Xoliqov","middle_name":"Bahodir o'g'li","age":44,"position":"jarroh","specialization":"Akusherlik jarrohi","hospital":16,"experience_years":18,"shift":"aralash","phone":"+998901234532","email":"","photo":null,"salary":"7200000","is_active":true,"hired_date":"2006-05-01","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":33,"fields":{"first_name":"Sarvinoz","last_name":"Qosimova","middle_name":"Ulmas qizi","age":29,"position":"hamshira","specialization":"Ginekologiya bo'limi","hospital":16,"experience_years":5,"shift":"tungi","phone":"+998901234533","email":"","photo":null,"salary":"2600000","is_active":true,"hired_date":"2019-07-01","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":34,"fields":{"first_name":"Alisher","last_name":"Tursunov","middle_name":"Javlon o'g'li","age":38,"position":"shifokor","specialization":"Dermatologiya","hospital":17,"experience_years":13,"shift":"kunduzgi","phone":"+998901234534","email":"","photo":null,"salary":"5100000","is_active":true,"hired_date":"2011-04-15","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":35,"fields":{"first_name":"Gulbahor","last_name":"Rahmatullayeva","middle_name":"Kamol qizi","age":32,"position":"laborant","specialization":"Serologiya laboratoriyasi","hospital":17,"experience_years":7,"shift":"kunduzgi","phone":"+998901234535","email":"","photo":null,"salary":"2700000","is_active":true,"hired_date":"2017-09-01","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":36,"fields":{"first_name":"Baxtiyor","last_name":"Yuldashev","middle_name":"Hamza o'g'li","age":50,"position":"shifokor","specialization":"Ftiziatriya (sil)","hospital":18,"experience_years":24,"shift":"kunduzgi","phone":"+998901234536","email":"","photo":null,"salary":"6500000","is_active":true,"hired_date":"2000-06-01","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":37,"fields":{"first_name":"Nozima","last_name":"Ergasheva","middle_name":"Sardor qizi","age":27,"position":"hamshira","specialization":"Sil bo'limi","hospital":18,"experience_years":3,"shift":"aralash","phone":"+998901234537","email":"","photo":null,"salary":"2350000","is_active":true,"hired_date":"2021-10-01","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":38,"fields":{"first_name":"Jamshid","last_name":"Mirzaev","middle_name":"Otabek o'g'li","age":36,"position":"shifokor","specialization":"Terapevt","hospital":19,"experience_years":11,"shift":"kunduzgi","phone":"+998901234538","email":"","photo":null,"salary":"4200000","is_active":true,"hired_date":"2013-08-10","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":39,"fields":{"first_name":"Dilnoza","last_name":"Xasanova","middle_name":"Farruх qizi","age":31,"position":"hamshira","specialization":"Terapiya bo'limi","hospital":19,"experience_years":6,"shift":"kunduzgi","phone":"+998901234539","email":"","photo":null,"salary":"2450000","is_active":true,"hired_date":"2018-03-01","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":40,"fields":{"first_name":"Rustam","last_name":"Nazarov","middle_name":"Timur o'g'li","age":42,"position":"jarroh","specialization":"Umumiy jarrohlik","hospital":20,"experience_years":17,"shift":"aralash","phone":"+998901234540","email":"","photo":null,"salary":"6800000","is_active":true,"hired_date":"2007-02-14","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":41,"fields":{"first_name":"Manzura","last_name":"Qoraboyeva","middle_name":"Ibrohim qizi","age":34,"position":"shifokor","specialization":"Pediatriya","hospital":20,"experience_years":9,"shift":"kunduzgi","phone":"+998901234541","email":"","photo":null,"salary":"4100000","is_active":true,"hired_date":"2015-05-20","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":42,"fields":{"first_name":"Shamsiddin","last_name":"Ismoilov","middle_name":"Nuri o'g'li","age":48,"position":"shifokor","specialization":"Terapevt","hospital":21,"experience_years":22,"shift":"kunduzgi","phone":"+998901234542","email":"","photo":null,"salary":"5900000","is_active":true,"hired_date":"2002-01-15","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":43,"fields":{"first_name":"Hulkar","last_name":"Tojiboyeva","middle_name":"Sarvar qizi","age":29,"position":"hamshira","specialization":"Jarrohlik bo'limi","hospital":21,"experience_years":4,"shift":"aralash","phone":"+998901234543","email":"","photo":null,"salary":"2400000","is_active":true,"hired_date":"2020-08-01","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":44,"fields":{"first_name":"Mansur","last_name":"Abdullayev","middle_name":"Zafar o'g'li","age":40,"position":"shifokor","specialization":"Terapevt","hospital":22,"experience_years":14,"shift":"kunduzgi","phone":"+998901234544","email":"","photo":null,"salary":"4600000","is_active":true,"hired_date":"2010-11-10","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":45,"fields":{"first_name":"Robiya","last_name":"Sotvoldiyeva","middle_name":"Hamid qizi","age":33,"position":"hamshira","specialization":"Terapiya bo'limi","hospital":22,"experience_years":8,"shift":"tungi","phone":"+998901234545","email":"","photo":null,"salary":"2550000","is_active":true,"hired_date":"2016-04-05","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":46,"fields":{"first_name":"Saidakbar","last_name":"Xolmatov","middle_name":"Ulmas o'g'li","age":45,"position":"jarroh","specialization":"Umumiy jarrohlik","hospital":23,"experience_years":19,"shift":"aralash","phone":"+998901234546","email":"","photo":null,"salary":"7000000","is_active":true,"hired_date":"2005-07-01","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":47,"fields":{"first_name":"Mavluda","last_name":"Yusupova","middle_name":"Hamza qizi","age":30,"position":"hamshira","specialization":"Tez yordam","hospital":23,"experience_years":5,"shift":"aralash","phone":"+998901234547","email":"","photo":null,"salary":"2450000","is_active":true,"hired_date":"2019-09-15","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":48,"fields":{"first_name":"Noiljon","last_name":"Umarov","middle_name":"Behruz o'g'li","age":38,"position":"shifokor","specialization":"Nevrologiya","hospital":24,"experience_years":12,"shift":"kunduzgi","phone":"+998901234548","email":"","photo":null,"salary":"5300000","is_active":true,"hired_date":"2012-02-20","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":49,"fields":{"first_name":"Farzona","last_name":"Xoliqova","middle_name":"Sanjar qizi","age":26,"position":"hamshira","specialization":"Nevrologiya bo'limi","hospital":24,"experience_years":2,"shift":"kunduzgi","phone":"+998901234549","email":"","photo":null,"salary":"2300000","is_active":true,"hired_date":"2022-06-01","notes":"","created_at":"2024-01-01T00:00:00Z"}},
+  {"model":"frontend.staff","pk":50,"fields":{"first_name":"Vohid","last_name":"Rajabov","middle_name":"Elmurod o'g'li","age":43,"position":"jarroh","specialization":"Umumiy jarrohlik","hospital":25,"experience_years":18,"shift":"aralash","phone":"+998901234550","email":"","photo":null,"salary":"6900000","is_active":true,"hired_date":"2006-03-10","notes":"","created_at":"2024-01-01T00:00:00Z"}}
+]

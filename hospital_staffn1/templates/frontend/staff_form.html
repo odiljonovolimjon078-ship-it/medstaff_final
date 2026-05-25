@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }} — MedStaff{% endblock %}
+{% block page_title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="d-flex align-items-center gap-3 mb-4">
+    <a href="{% url 'staff_list' %}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left me-1"></i>Orqaga
+    </a>
+    <div>
+        <h5 class="mb-0 fw-bold">{{ title }}</h5>
+        <small class="text-muted">Barcha * belgili maydonlar majburiy</small>
+    </div>
+</div>
+
+<div class="card p-4" style="max-width:860px">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row g-3">
+            <div class="col-12">
+                <div class="section-label"><i class="bi bi-person-fill text-primary"></i>Shaxsiy ma'lumotlar</div>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Familiya *</label>{{ form.last_name }}
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Ism *</label>{{ form.first_name }}
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Otasining ismi</label>{{ form.middle_name }}
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Yosh *</label>{{ form.age }}
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Telefon</label>{{ form.phone }}
+            </div>
+            <div class="col-md-5">
+                <label class="form-label">Email</label>{{ form.email }}
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Rasm</label>{{ form.photo }}
+            </div>
+
+            <div class="col-12 mt-2">
+                <div class="section-label"><i class="bi bi-briefcase-fill text-success"></i>Ish ma'lumotlari</div>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Kasalxona *</label>{{ form.hospital }}
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Lavozim *</label>{{ form.position }}
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Mutaxassislik</label>{{ form.specialization }}
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Tajriba (yil) *</label>{{ form.experience_years }}
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Ish vaqti *</label>{{ form.shift }}
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Ishga kirgan sana</label>{{ form.hired_date }}
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Maosh (so'm)</label>{{ form.salary }}
+            </div>
+            <div class="col-12">
+                <label class="form-label">Izoh</label>{{ form.notes }}
+            </div>
+
+            {% for field in form %}{% if field.errors %}
+            <div class="col-12">
+                <div class="alert alert-danger py-2 small">
+                    <strong>{{ field.label }}:</strong> {% for e in field.errors %}{{ e }}{% endfor %}
+                </div>
+            </div>
+            {% endif %}{% endfor %}
+
+            <div class="col-12 d-flex gap-2 mt-2">
+                <button type="submit" class="btn btn-primary px-4">
+                    <i class="bi bi-check-circle-fill me-1"></i>Saqlash
+                </button>
+                <a href="{% url 'staff_list' %}" class="btn btn-outline-secondary px-4">Bekor qilish</a>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

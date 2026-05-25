@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ro'yxatdan o'tish — MedStaff</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            font-family: 'Inter', system-ui, sans-serif;
+            background: linear-gradient(145deg, #0f172a 0%, #1e1b4b 50%, #1e3a8a 100%);
+            padding: 1.5rem;
+        }
+        body::before {
+            content: ''; position: fixed; inset: 0; pointer-events: none;
+            background: radial-gradient(circle at 20% 50%, rgba(59,130,246,.12) 0%, transparent 55%),
+                        radial-gradient(circle at 85% 20%, rgba(6,182,212,.08) 0%, transparent 45%);
+        }
+        .card {
+            background: white; border-radius: 24px;
+            box-shadow: 0 30px 80px rgba(0,0,0,.35);
+            padding: 2.5rem; width: 100%; max-width: 480px;
+            position: relative; z-index: 1;
+        }
+        .logo-wrap {
+            width: 68px; height: 68px;
+            background: linear-gradient(135deg, #1e40af, #06b6d4);
+            border-radius: 22px; display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 1.4rem;
+            box-shadow: 0 12px 35px rgba(30,64,175,.35);
+        }
+        .card h4 { font-size: 1.5rem; font-weight: 800; color: #0f172a; text-align: center; }
+        .card .sub { color: #94a3b8; font-size: .82rem; text-align: center; margin: .3rem 0 1.5rem; }
+
+        /* Progress steps */
+        .steps { display: flex; align-items: center; justify-content: center; gap: 0; margin-bottom: 1.75rem; }
+        .step-item { display: flex; flex-direction: column; align-items: center; gap: .35rem; }
+        .step-num {
+            width: 32px; height: 32px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: .8rem; font-weight: 700; transition: all .3s;
+            border: 2px solid #e2e8f0; color: #cbd5e1; background: white;
+        }
+        .step-num.active { border-color: #1e40af; color: #1e40af; background: #dbeafe; }
+        .step-num.done { border-color: #10b981; color: white; background: #10b981; }
+        .step-label { font-size: .68rem; color: #94a3b8; font-weight: 600; }
+        .step-label.active { color: #1e40af; }
+        .step-connector { width: 50px; height: 2px; background: #e2e8f0; margin: 0 .3rem; margin-bottom: 1.2rem; transition: background .3s; }
+        .step-connector.done { background: #10b981; }
+
+        /* Form sections */
+        .form-section { display: none; }
+        .form-section.active { display: block; }
+
+        /* Input */
+        .field { margin-bottom: 1.1rem; }
+        .field label { display: block; font-size: .78rem; font-weight: 700; color: #475569; margin-bottom: .35rem; text-transform: uppercase; letter-spacing: .5px; }
+        .input-wrap { position: relative; }
+        .input-wrap i { position: absolute; left: .9rem; top: 50%; transform: translateY(-50%); color: #94a3b8; }
+        .input-wrap input {
+            width: 100%; padding: .7rem .9rem .7rem 2.5rem;
+            border: 1.5px solid #e2e8f0; border-radius: 12px;
+            font-size: .9rem; font-family: inherit; color: #0f172a;
+            transition: border .2s, box-shadow .2s; background: white;
+        }
+        .input-wrap input:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,.12); }
+        .input-wrap .prefix {
+            position: absolute; left: 0; top: 0; bottom: 0;
+            padding: 0 .9rem; display: flex; align-items: center;
+            background: #f8fafc; border-right: 1.5px solid #e2e8f0;
+            border-radius: 12px 0 0 12px; color: #475569; font-weight: 600; font-size: .88rem;
+        }
+        .input-wrap.has-prefix input { padding-left: 4.2rem; }
+
+        /* OTP */
+        .otp-input {
+            letter-spacing: 14px; font-size: 2rem; font-weight: 800;
+            text-align: center; border-radius: 14px !important;
+            padding-left: 1.5rem !important;
+        }
+
+        .btn-main {
+            width: 100%; padding: .78rem; border: none; border-radius: 12px;
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            color: white; font-size: .95rem; font-weight: 700; cursor: pointer;
+            font-family: inherit; transition: all .2s;
+            box-shadow: 0 6px 20px rgba(30,64,175,.25);
+        }
+        .btn-main:hover { transform: translateY(-1px); box-shadow: 0 10px 28px rgba(30,64,175,.35); }
+        .btn-main:disabled { opacity: .6; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        .btn-back {
+            width: 100%; padding: .55rem; border: 1.5px solid #e2e8f0;
+            border-radius: 12px; background: white; color: #64748b;
+            font-size: .85rem; font-weight: 600; cursor: pointer;
+            font-family: inherit; transition: all .2s; margin-top: .6rem;
+        }
+        .btn-back:hover { background: #f8fafc; border-color: #cbd5e1; }
+
+        .timer-row { display: flex; justify-content: space-between; align-items: center; margin-top: .5rem; }
+        .timer-txt { font-size: .78rem; color: #94a3b8; }
+        .timer-txt span { color: #1e40af; font-weight: 700; }
+        .btn-resend { background: none; border: none; color: #1e40af; font-size: .78rem; font-weight: 700; cursor: pointer; padding: 0; font-family: inherit; }
+        .btn-resend:disabled { color: #cbd5e1; cursor: not-allowed; }
+
+        .msg-box {
+            border-radius: 10px; padding: .6rem .85rem; font-size: .82rem;
+            margin-bottom: .9rem; display: flex; align-items: center; gap: .5rem; display: none;
+        }
+        .msg-box.err { background: #fee2e2; color: #991b1b; }
+        .msg-box.ok { background: #d1fae5; color: #065f46; }
+
+        .login-link { text-align: center; margin-top: 1.25rem; color: #94a3b8; font-size: .82rem; }
+        .login-link a { color: #1e40af; font-weight: 700; text-decoration: none; }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="logo-wrap">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2L3 7v10l9 5 9-5V7L12 2z" stroke="white" stroke-width="1.4" fill="rgba(255,255,255,.15)"/>
+            <path d="M12 8v8M8 12h8" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+    </div>
+    <h4>Ro'yxatdan o'tish</h4>
+    <p class="sub">Tizimga kirish uchun ro'yxatdan o'ting</p>
+
+    <!-- Progress -->
+    <div class="steps">
+        <div class="step-item">
+            <div class="step-num active" id="sn1">1</div>
+            <div class="step-label active" id="sl1">Raqam</div>
+        </div>
+        <div class="step-connector" id="sc1"></div>
+        <div class="step-item">
+            <div class="step-num" id="sn2">2</div>
+            <div class="step-label" id="sl2">Tasdiqlash</div>
+        </div>
+        <div class="step-connector" id="sc2"></div>
+        <div class="step-item">
+            <div class="step-num" id="sn3">3</div>
+            <div class="step-label" id="sl3">Parol</div>
+        </div>
+    </div>
+
+    <div class="msg-box err" id="err-box"><i class="bi bi-exclamation-circle-fill"></i><span id="err-txt"></span></div>
+    <div class="msg-box ok" id="ok-box"><i class="bi bi-check-circle-fill"></i><span id="ok-txt"></span></div>
+
+    <!-- Step 1: Phone -->
+    <div class="form-section active" id="sec1">
+        <p style="font-size:.84rem;color:#64748b;margin-bottom:1rem">
+            📱 Telefon raqamingizni kiriting — sizga SMS tasdiqlash kodi yuboriladi
+        </p>
+        <div class="field">
+            <label>Telefon raqam</label>
+            <div class="input-wrap has-prefix">
+                <span class="prefix">+998</span>
+                <input type="tel" id="phone" placeholder="90 123 45 67" maxlength="12" inputmode="numeric">
+            </div>
+        </div>
+        <button class="btn-main" id="btn1" onclick="sendSMS()">
+            <i class="bi bi-send-fill me-2"></i>SMS kod yuborish
+        </button>
+    </div>
+
+    <!-- Step 2: OTP -->
+    <div class="form-section" id="sec2">
+        <p style="font-size:.84rem;color:#64748b;margin-bottom:1rem">
+            🔐 <strong id="phone-disp"></strong> raqamiga 4 xonali kod yuborildi
+        </p>
+        <div class="field">
+            <label>SMS kodni kiriting</label>
+            <div class="input-wrap">
+                <input type="text" id="otp" class="otp-input" placeholder="——" maxlength="4" inputmode="numeric"
+                    oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+            </div>
+            <div class="timer-row">
+                <span class="timer-txt" id="timer-txt">Qayta yuborish: <span id="cd">4:59</span></span>
+                <button class="btn-resend" id="resend-btn" onclick="resend()" disabled>
+                    <i class="bi bi-arrow-clockwise me-1"></i>Qayta yuborish
+                </button>
+            </div>
+        </div>
+        <button class="btn-main" id="btn2" onclick="verifyOTP()">
+            <i class="bi bi-shield-check me-2"></i>Kodni tasdiqlash
+        </button>
+        <button class="btn-back" onclick="goStep(1)">← Orqaga</button>
+    </div>
+
+    <!-- Step 3: Password -->
+    <div class="form-section" id="sec3">
+        <p style="font-size:.84rem;color:#64748b;margin-bottom:1rem">
+            ✅ Raqam tasdiqlandi! Akkauntingiz uchun parol o'rnating
+        </p>
+        <div class="field">
+            <label>Parol</label>
+            <div class="input-wrap">
+                <i class="bi bi-lock"></i>
+                <input type="password" id="pw1" placeholder="Kamida 6 ta belgi">
+            </div>
+        </div>
+        <div class="field">
+            <label>Parolni tasdiqlang</label>
+            <div class="input-wrap">
+                <i class="bi bi-lock-fill"></i>
+                <input type="password" id="pw2" placeholder="Parolni qaytaring">
+            </div>
+        </div>
+        <button class="btn-main" id="btn3" onclick="finish()">
+            <i class="bi bi-person-check-fill me-2"></i>Ro'yxatdan o'tish
+        </button>
+        <button class="btn-back" onclick="goStep(2)">← Orqaga</button>
+    </div>
+
+    <p class="login-link">Akkaunt bormi? <a href="{% url 'login' %}">Kirish</a></p>
+</div>
+
+<script>
+let phone = '', timer = null;
+
+function showErr(msg) {
+    document.getElementById('err-txt').textContent = msg;
+    document.getElementById('err-box').style.display = 'flex';
+    document.getElementById('ok-box').style.display = 'none';
+}
+function showOk(msg) {
+    document.getElementById('ok-txt').textContent = msg;
+    document.getElementById('ok-box').style.display = 'flex';
+    document.getElementById('err-box').style.display = 'none';
+}
+function hideMsg() {
+    document.getElementById('err-box').style.display = 'none';
+    document.getElementById('ok-box').style.display = 'none';
+}
+
+function goStep(n) {
+    hideMsg();
+    [1,2,3].forEach(i => {
+        document.getElementById('sec'+i).classList.toggle('active', i===n);
+        const sn = document.getElementById('sn'+i);
+        const sl = document.getElementById('sl'+i);
+        sn.classList.remove('active','done');
+        sl.classList.remove('active');
+        if (i < n) { sn.classList.add('done'); sn.innerHTML = '<i class="bi bi-check2"></i>'; }
+        else if (i === n) { sn.classList.add('active'); sn.textContent = i; sl.classList.add('active'); }
+        else { sn.textContent = i; }
+        if (i < 3) document.getElementById('sc'+i).classList.toggle('done', i < n);
+    });
+}
+
+function getCsrf() {
+    const m = document.cookie.match('(^|;)\\s*csrftoken=([^;]*)');
+    return m ? m[2] : '';
+}
+
+async function sendSMS() {
+    const raw = document.getElementById('phone').value.replace(/\s/g,'');
+    if (raw.length < 9) { showErr("To'liq telefon raqam kiriting (9 ta raqam)"); return; }
+    phone = '+998' + raw;
+    const btn = document.getElementById('btn1');
+    btn.disabled = true; btn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Yuborilmoqda...';
+    try {
+        const r = await fetch("{% url 'send_sms' %}", {
+            method:'POST', headers:{'Content-Type':'application/json','X-CSRFToken':getCsrf()},
+            body: JSON.stringify({phone})
+        });
+        const d = await r.json();
+        if (d.success) {
+            document.getElementById('phone-disp').textContent = phone;
+            goStep(2);
+            startTimer(299);
+            if (d.dev_code) showOk('🛠 Test rejimi — Kod: ' + d.dev_code);
+        } else { showErr(d.error || 'Xato yuz berdi'); }
+    } catch(e) { showErr("Server bilan bog'lanishda xato"); }
+    btn.disabled = false; btn.innerHTML = '<i class="bi bi-send-fill me-2"></i>SMS kod yuborish';
+}
+
+async function resend() {
+    document.getElementById('resend-btn').disabled = true;
+    const r = await fetch("{% url 'send_sms' %}", {
+        method:'POST', headers:{'Content-Type':'application/json','X-CSRFToken':getCsrf()},
+        body: JSON.stringify({phone})
+    });
+    const d = await r.json();
+    if (d.success) { showOk('Yangi kod yuborildi!'); startTimer(299); if(d.dev_code) showOk('🛠 Yangi kod: '+d.dev_code); }
+    else showErr(d.error);
+}
+
+function verifyOTP() {
+    const code = document.getElementById('otp').value.trim();
+    if (code.length !== 4) { showErr('4 xonali kodni kiriting'); return; }
+    goStep(3);
+}
+
+async function finish() {
+    const code = document.getElementById('otp').value.trim();
+    const p1 = document.getElementById('pw1').value;
+    const p2 = document.getElementById('pw2').value;
+    if (p1 !== p2) { showErr("Parollar mos kelmaydi"); return; }
+    if (p1.length < 6) { showErr("Parol kamida 6 ta belgi bo'lishi kerak"); return; }
+    const btn = document.getElementById('btn3');
+    btn.disabled = true; btn.innerHTML = "<i class='bi bi-hourglass-split me-2'></i>Ro'yxatdan o'tilmoqda...";
+    try {
+        const r = await fetch("{% url 'verify_sms' %}", {
+            method:'POST', headers:{'Content-Type':'application/json','X-CSRFToken':getCsrf()},
+            body: JSON.stringify({phone, code, password: p1})
+        });
+        const d = await r.json();
+        if (d.success) {
+            showOk("Muvaffaqiyatli! Yo'naltirilmoqda...");
+            setTimeout(() => window.location.href = d.redirect || '/', 900);
+        } else { showErr(d.error || 'Xato yuz berdi'); }
+    } catch(e) { showErr("Server bilan bog'lanishda xato"); }
+    btn.disabled = false; btn.innerHTML = "<i class='bi bi-person-check-fill me-2'></i>Ro'yxatdan o'tish";
+}
+
+function startTimer(s) {
+    clearInterval(timer);
+    document.getElementById('resend-btn').disabled = true;
+    let rem = s;
+    timer = setInterval(() => {
+        rem--;
+        const m = Math.floor(rem/60), sec = rem%60;
+        document.getElementById('cd').textContent = m+':'+(sec<10?'0':'')+sec;
+        if (rem <= 0) {
+            clearInterval(timer);
+            document.getElementById('timer-txt').textContent = 'Kod muddati tugadi';
+            document.getElementById('resend-btn').disabled = false;
+        }
+    }, 1000);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('phone').addEventListener('input', function(){ this.value = this.value.replace(/[^0-9]/g,''); });
+    document.getElementById('phone').addEventListener('keydown', e => { if(e.key==='Enter') sendSMS(); });
+    document.getElementById('otp').addEventListener('keydown', e => { if(e.key==='Enter') verifyOTP(); });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }} — MedStaff{% endblock %}
+{% block page_title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="d-flex align-items-center gap-3 mb-4">
+    <a href="{% url 'hospital_list' %}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left me-1"></i>Orqaga
+    </a>
+    <div>
+        <h5 class="mb-0 fw-bold">{{ title }}</h5>
+        <small class="text-muted">Barcha * belgili maydonlar majburiy</small>
+    </div>
+</div>
+
+<div class="card p-4" style="max-width:720px">
+    <form method="post">
+        {% csrf_token %}
+        <div class="row g-3">
+            <div class="col-12">
+                <div class="section-label"><i class="bi bi-hospital-fill text-primary"></i>Kasalxona ma'lumotlari</div>
+            </div>
+            <div class="col-md-8">
+                <label class="form-label">Kasalxona nomi *</label>{{ form.name }}
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Turi *</label>{{ form.hospital_type }}
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Viloyat *</label>{{ form.region }}
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">O'rin soni</label>{{ form.bed_count }}
+            </div>
+            <div class="col-12">
+                <label class="form-label">Manzil *</label>{{ form.address }}
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Telefon</label>{{ form.phone }}
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Email</label>{{ form.email }}
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Veb-sayt</label>{{ form.website }}
+            </div>
+
+            {% for field in form %}{% if field.errors %}
+            <div class="col-12">
+                <div class="alert alert-danger py-2 small">
+                    <strong>{{ field.label }}:</strong> {% for e in field.errors %}{{ e }}{% endfor %}
+                </div>
+            </div>
+            {% endif %}{% endfor %}
+
+            <div class="col-12 d-flex gap-2 mt-2">
+                <button type="submit" class="btn btn-primary px-4">
+                    <i class="bi bi-check-circle-fill me-1"></i>Saqlash
+                </button>
+                <a href="{% url 'hospital_list' %}" class="btn btn-outline-secondary px-4">Bekor qilish</a>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
