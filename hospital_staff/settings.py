@@ -48,6 +48,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'hospital_staff.wsgi.application'
+CSRF_TRUSTED_ORIGINS = ['https://medstafffinal-production.up.railway.app']
 
 DATABASES = {
     'default': {
